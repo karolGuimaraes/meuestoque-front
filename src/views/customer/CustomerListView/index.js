@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Container,
@@ -8,6 +8,7 @@ import Page from 'src/components/Page';
 import Results from './Results';
 import Toolbar from './Toolbar';
 import data from './data';
+import api from '../../../services/api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,12 +21,24 @@ const useStyles = makeStyles((theme) => ({
 
 const CustomerListView = () => {
   const classes = useStyles();
-  const [customers] = useState(data);
+  const [customers, setCustomers] = useState([]);
+
+  useEffect(() => {
+    api
+      .get("/users")
+      .then((response) => {
+        setCustomers(response.data);
+        console.log(response.data)
+      })
+      .catch((error) => {
+        alert("Ocorreu um erro ao buscar os items");
+      });
+  }, []);
 
   return (
     <Page
       className={classes.root}
-      title="Customers"
+      title="Clientes"
     >
       <Container maxWidth={false}>
         <Toolbar />

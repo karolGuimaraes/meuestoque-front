@@ -15,9 +15,17 @@ import {
   TablePagination,
   TableRow,
   Typography,
-  makeStyles
+  makeStyles,
+  Button,
+  IconButton,
 } from '@material-ui/core';
+import {
+  Edit as EditIcon,
+  UserX as UserXIcon
+} from 'react-feather';
 import getInitials from 'src/utils/getInitials';
+import { NavLink as RouterLink } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -72,6 +80,7 @@ const Results = ({ className, customers, ...rest }) => {
     setPage(newPage);
   };
 
+
   return (
     <Card
       className={clsx(classes.root, className)}
@@ -82,17 +91,6 @@ const Results = ({ className, customers, ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
-                {/* <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedCustomerIds.length === customers.length}
-                    color="primary"
-                    indeterminate={
-                      selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < customers.length
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell> */}
                 <TableCell>
                   Nome
                 </TableCell>
@@ -102,6 +100,9 @@ const Results = ({ className, customers, ...rest }) => {
                 <TableCell>
                   Telefone
                 </TableCell>
+                <TableCell>
+                  Ações
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -109,31 +110,17 @@ const Results = ({ className, customers, ...rest }) => {
                 <TableRow
                   hover
                   key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
                 >
-                  {/* <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
-                      value="true"
-                    />
-                  </TableCell> */}
                   <TableCell>
                     <Box
                       alignItems="center"
                       display="flex"
                     >
-                      {/* <Avatar
-                        className={classes.avatar}
-                        src={customer.avatarUrl}
-                      >
-                        {getInitials(customer.name)}
-                      </Avatar> */}
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.name}
+                        {customer.username}
                       </Typography>
                     </Box>
                   </TableCell>
@@ -143,12 +130,29 @@ const Results = ({ className, customers, ...rest }) => {
                   <TableCell>
                     {customer.phone}
                   </TableCell>
-                  {/* <TableCell>
-                    {customer.phone}
-                  </TableCell>
                   <TableCell>
-                    {moment(customer.createdAt).format('DD/MM/YYYY')}
-                  </TableCell> */}
+                    <Box
+                      alignItems="center"
+                      display="flex"
+                    >
+                      <IconButton
+                        edge="end"
+                        size="small"
+                        color="secondary"
+                        component={RouterLink}
+                        to={"/app/account"}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton
+                        edge="end"
+                        size="small"
+                        color="secondary"
+                      >
+                        <UserXIcon />
+                      </IconButton>
+                    </Box>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

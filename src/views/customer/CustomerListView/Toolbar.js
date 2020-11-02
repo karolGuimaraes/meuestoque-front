@@ -9,9 +9,12 @@ import {
   TextField,
   InputAdornment,
   SvgIcon,
-  makeStyles
+  makeStyles,
+  CardActions,
+  Divider,
 } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
+import { NavLink as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -31,23 +34,7 @@ const Toolbar = ({ className, ...rest }) => {
       className={clsx(classes.root, className)}
       {...rest}
     >
-      <Box
-        display="flex"
-        justifyContent="flex-end"
-      >
-        {/* <Button className={classes.importButton}>
-          Import
-        </Button>
-        <Button className={classes.exportButton}>
-          Export
-        </Button> */}
-        <Button
-          color="primary"
-          variant="contained"
-        >
-          Add customer
-        </Button>
-      </Box>
+      
       <Box mt={3}>
         <Card>
           <CardContent>
@@ -66,11 +53,23 @@ const Toolbar = ({ className, ...rest }) => {
                     </InputAdornment>
                   )
                 }}
-                placeholder="Search customer"
+                placeholder="Pesquisar"
                 variant="outlined"
               />
             </Box>
+            
           </CardContent>
+          <CardActions>
+            <Button
+              color="primary"
+              variant="contained"
+              fullWidth
+              component={RouterLink}
+              to={"/app/account"}
+            >
+              Adicionar
+            </Button>
+          </CardActions>
         </Card>
       </Box>
     </div>

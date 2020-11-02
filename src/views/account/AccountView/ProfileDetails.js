@@ -12,6 +12,7 @@ import {
   TextField,
   makeStyles
 } from '@material-ui/core';
+import { NavLink as RouterLink } from 'react-router-dom';
 
 const states = [
   {
@@ -59,8 +60,7 @@ const ProfileDetails = ({ className, ...rest }) => {
     >
       <Card>
         <CardHeader
-          subheader="The information can be edited"
-          title="Profile"
+          title="Cliente"
         />
         <Divider />
         <CardContent>
@@ -75,8 +75,7 @@ const ProfileDetails = ({ className, ...rest }) => {
             >
               <TextField
                 fullWidth
-                helperText="Please specify the first name"
-                label="First name"
+                label="Primeiro nome"
                 name="firstName"
                 onChange={handleChange}
                 required
@@ -91,10 +90,9 @@ const ProfileDetails = ({ className, ...rest }) => {
             >
               <TextField
                 fullWidth
-                label="Last name"
+                label="Último nome"
                 name="lastName"
                 onChange={handleChange}
-                required
                 value={values.lastName}
                 variant="outlined"
               />
@@ -106,11 +104,10 @@ const ProfileDetails = ({ className, ...rest }) => {
             >
               <TextField
                 fullWidth
-                label="Email Address"
-                name="email"
+                label="Refêrencia"
+                name="reference"
                 onChange={handleChange}
-                required
-                value={values.email}
+                value={values.reference}
                 variant="outlined"
               />
             </Grid>
@@ -121,10 +118,9 @@ const ProfileDetails = ({ className, ...rest }) => {
             >
               <TextField
                 fullWidth
-                label="Phone Number"
+                label="Telefone"
                 name="phone"
                 onChange={handleChange}
-                type="number"
                 value={values.phone}
                 variant="outlined"
               />
@@ -136,11 +132,10 @@ const ProfileDetails = ({ className, ...rest }) => {
             >
               <TextField
                 fullWidth
-                label="Country"
-                name="country"
+                label="Instagram"
+                name="instagram"
                 onChange={handleChange}
-                required
-                value={values.country}
+                value={values.instagram}
                 variant="outlined"
               />
             </Grid>
@@ -151,23 +146,100 @@ const ProfileDetails = ({ className, ...rest }) => {
             >
               <TextField
                 fullWidth
-                label="Select State"
+                label="Email"
+                name="email"
+                onChange={handleChange}
+                value={values.instagram}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="CEP"
+                name="zipCode"
+                onChange={handleChange}
+                value={values.zipCode}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Logradouro"
+                name="address"
+                onChange={handleChange}
+                value={values.address}
+                variant="outlined"
+              >
+              </TextField>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Complemento"
+                name="complement"
+                onChange={handleChange}
+                value={values.complement}
+                variant="outlined"
+              >
+              </TextField>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Bairro"
+                name="district"
+                onChange={handleChange}
+                value={values.district}
+                variant="outlined"
+              >
+              </TextField>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Cidade"
+                name="city"
+                onChange={handleChange}
+                value={values.city}
+                variant="outlined"
+              >
+              </TextField>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Estado"
                 name="state"
                 onChange={handleChange}
-                required
-                select
-                SelectProps={{ native: true }}
                 value={values.state}
                 variant="outlined"
               >
-                {states.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
               </TextField>
             </Grid>
           </Grid>
@@ -182,7 +254,16 @@ const ProfileDetails = ({ className, ...rest }) => {
             color="primary"
             variant="contained"
           >
-            Save details
+            Salvar
+          </Button>
+          
+          <Button
+            color="primary"
+            variant="contained"
+            component={RouterLink}
+            to={"/app/customers"}
+          >
+            Cancelar
           </Button>
         </Box>
       </Card>
