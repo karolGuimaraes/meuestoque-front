@@ -253,10 +253,11 @@ const ProfileDetails = ({ className, ...rest }) => {
           <Button
             color="primary"
             variant="contained"
+            component={RouterLink}
+            to={"/app/customers"}
           >
             Salvar
           </Button>
-          
           <Button
             color="primary"
             variant="contained"

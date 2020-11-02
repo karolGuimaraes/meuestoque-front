@@ -11,8 +11,8 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import GetAppIcon from '@material-ui/icons/GetApp';
+import LocalMallIcon from '@material-ui/icons/LocalMall';
+import AccessibilityIcon from '@material-ui/icons/Accessibility';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
   },
   statsIcon: {
     marginRight: theme.spacing(1)
+  },
+  avatar: {
+    height: 100,
+    width: 100
   }
 }));
 
@@ -46,6 +50,7 @@ const ProductCard = ({ className, product, ...rest }) => {
             alt="Product"
             src={product.media}
             variant="square"
+            className={classes.avatar}
           />
         </Box>
         <Typography
@@ -56,13 +61,13 @@ const ProductCard = ({ className, product, ...rest }) => {
         >
           {product.title}
         </Typography>
-        <Typography
+        {/* <Typography
           align="center"
           color="textPrimary"
           variant="body1"
         >
           {product.description}
-        </Typography>
+        </Typography> */}
       </CardContent>
       <Box flexGrow={1} />
       <Divider />
@@ -76,7 +81,7 @@ const ProductCard = ({ className, product, ...rest }) => {
             className={classes.statsItem}
             item
           >
-            <AccessTimeIcon
+            <AccessibilityIcon
               className={classes.statsIcon}
               color="action"
             />
@@ -85,14 +90,14 @@ const ProductCard = ({ className, product, ...rest }) => {
               display="inline"
               variant="body2"
             >
-              Updated 2hr ago
+              M
             </Typography>
           </Grid>
           <Grid
             className={classes.statsItem}
             item
           >
-            <GetAppIcon
+            <LocalMallIcon
               className={classes.statsIcon}
               color="action"
             />
@@ -102,8 +107,6 @@ const ProductCard = ({ className, product, ...rest }) => {
               variant="body2"
             >
               {product.totalDownloads}
-              {' '}
-              Downloads
             </Typography>
           </Grid>
         </Grid>
