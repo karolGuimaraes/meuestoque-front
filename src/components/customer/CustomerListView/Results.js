@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -25,6 +25,7 @@ import {
 } from 'react-feather';
 import getInitials from 'src/utils/getInitials';
 import { NavLink as RouterLink } from 'react-router-dom';
+import api from '../../../services/api';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,11 +35,24 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Results = ({ className, customers, ...rest }) => {
+const Results = ({ className, ...rest }) => {
   const classes = useStyles();
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
+  const [customers, setCustomers] = useState([]);
+
+  useEffect(() => {
+    api
+      .get("/customers")
+      .then((response) => {
+        setCustomers(response.data);
+        console.log(response.data)
+      })
+      .catch((error) => {
+        alert("Ocorreu um erro ao buscar os items");
+      });
+  }, []);
 
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
@@ -80,6 +94,17 @@ const Results = ({ className, customers, ...rest }) => {
     setPage(newPage);
   };
 
+  const customerDelete = (id, i) => {
+    api
+      .delete(`/user/${id}`)
+      .then((response) => {
+        console.log(response.data)
+        setCustomers(customers.slice(i,1 ))
+      })
+      .catch((error) => {
+        alert(`Ocorreu um erro ao excuir o cliente ${id}`);
+      });
+  }
 
   return (
     <Card
@@ -106,7 +131,7 @@ const Results = ({ className, customers, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {customers.slice(0, limit).map((customer, i) => (
                 <TableRow
                   hover
                   key={customer.id}
@@ -120,12 +145,12 @@ const Results = ({ className, customers, ...rest }) => {
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.username}
+                        {customer.firstname}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {customer.email}
+                    {customer.reference}
                   </TableCell>
                   <TableCell>
                     {customer.phone}
@@ -148,6 +173,7 @@ const Results = ({ className, customers, ...rest }) => {
                         edge="end"
                         size="small"
                         color="secondary"
+                        onClick={() => customerDelete(customer._id, i)}
                       >
                         <UserXIcon />
                       </IconButton>

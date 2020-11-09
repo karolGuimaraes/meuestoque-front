@@ -28,7 +28,7 @@ const routes = [
     path: '/',
     element: <MainLayout />,
     children: [
-      // { path: 'login', element: <LoginView /> },
+      { path: 'login', element: <LoginView /> },
       // { path: 'register', element: <RegisterView /> },
       // { path: '404', element: <NotFoundView /> },
       { path: '/', element: <Navigate to="/app/dashboard" /> },
