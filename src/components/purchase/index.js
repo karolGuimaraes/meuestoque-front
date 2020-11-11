@@ -4,11 +4,10 @@ import {
   Container,
   makeStyles
 } from '@material-ui/core';
-import Page from 'src/components/Page';
+import Page from 'src/assets/Page';
 import Results from './Results';
 import Toolbar from './Toolbar';
-import data from './data';
-import api from '../../../services/api';
+import api from '../../services/api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,14 +18,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const CustomerListView = () => {
+const PurchaseView = () => {
   const classes = useStyles();
 
 
   return (
     <Page
       className={classes.root}
-      title="Clientes"
+      title="Compras"
     >
       <Container maxWidth={false}>
         <Toolbar />
@@ -38,4 +37,4 @@ const CustomerListView = () => {
   );
 };
 
-export default CustomerListView;
+export default PurchaseView;

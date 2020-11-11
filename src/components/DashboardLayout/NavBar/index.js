@@ -40,49 +40,19 @@ const items = [
   },
   {
     href: '/app/customers',
-    icon: FileTextIcon,
-    title: 'Notas'
-  },
-  {
-    href: '/app/customers',
     icon: DollarSignIcon,
     title: 'Vendas'
+  },
+  {
+    href: '/app/purchases',
+    icon: FileTextIcon,
+    title: 'Compras'
   },
   {
     href: '/app/customers',
     icon: UsersIcon,
     title: 'Clientes'
-  },
-  // {
-  //   href: '/app/dashboard',
-  //   icon: BarChartIcon,
-  //   title: 'Dashboard'
-  // },
-  // {
-  //   href: '/app/account',
-  //   icon: UserIcon,
-  //   title: 'Account'
-  // },
-  // {
-  //   href: '/app/settings',
-  //   icon: SettingsIcon,
-  //   title: 'Settings'
-  // },
-  // {
-  //   href: '/login',
-  //   icon: LockIcon,
-  //   title: 'Login'
-  // },
-  // {
-  //   href: '/register',
-  //   icon: UserPlusIcon,
-  //   title: 'Register'
-  // },
-  // {
-  //   href: '/404',
-  //   icon: AlertCircleIcon,
-  //   title: 'Error'
-  // }
+  }
 ];
 
 const useStyles = makeStyles(() => ({

@@ -4,7 +4,7 @@ import {
   Grid,
   makeStyles
 } from '@material-ui/core';
-import Page from 'src/components/Page';
+import Page from '../../../assets/Page';
 import ProfileDetails from './ProfileDetails';
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +22,7 @@ const Account = () => {
   return (
     <Page
       className={classes.root}
-      title="Cliente"
+      title="Editar Cliente"
     >
       <Container maxWidth="lg">
         <Grid

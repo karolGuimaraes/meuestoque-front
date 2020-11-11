@@ -14,7 +14,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
-import Logo from 'src/components/Logo';
+import Logo from 'src/assets/Logo';
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -39,7 +39,7 @@ const TopBar = ({
       {...rest}
     >
       <Toolbar>
-        <RouterLink to="/">
+        <RouterLink to="/app/products">
           <Logo />
         </RouterLink>
         <Box flexGrow={1} />

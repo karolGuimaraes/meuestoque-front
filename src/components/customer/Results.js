@@ -23,9 +23,8 @@ import {
   Edit as EditIcon,
   UserX as UserXIcon
 } from 'react-feather';
-import getInitials from 'src/utils/getInitials';
 import { NavLink as RouterLink } from 'react-router-dom';
-import api from '../../../services/api';
+import api from '../../services/api';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,57 +34,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Results = ({ className, ...rest }) => {
+const Results = ({ className, customers, customerDelete, customerFormUpdate, ...rest }) => {
   const classes = useStyles();
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
-  const [customers, setCustomers] = useState([]);
-
-  useEffect(() => {
-    api
-      .get("/customers")
-      .then((response) => {
-        setCustomers(response.data);
-        console.log(response.data)
-      })
-      .catch((error) => {
-        alert("Ocorreu um erro ao buscar os items");
-      });
-  }, []);
-
-  const handleSelectAll = (event) => {
-    let newSelectedCustomerIds;
-
-    if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer.id);
-    } else {
-      newSelectedCustomerIds = [];
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
-
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
-    let newSelectedCustomerIds = [];
-
-    if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
-    } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
-
+  
+ 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
   };
@@ -94,17 +48,7 @@ const Results = ({ className, ...rest }) => {
     setPage(newPage);
   };
 
-  const customerDelete = (id, i) => {
-    api
-      .delete(`/user/${id}`)
-      .then((response) => {
-        console.log(response.data)
-        setCustomers(customers.slice(i,1 ))
-      })
-      .catch((error) => {
-        alert(`Ocorreu um erro ao excuir o cliente ${id}`);
-      });
-  }
+  
 
   return (
     <Card
@@ -134,7 +78,7 @@ const Results = ({ className, ...rest }) => {
               {customers.slice(0, limit).map((customer, i) => (
                 <TableRow
                   hover
-                  key={customer.id}
+                  key={customer._id}
                 >
                   <TableCell>
                     <Box
@@ -164,8 +108,8 @@ const Results = ({ className, ...rest }) => {
                         edge="end"
                         size="small"
                         color="secondary"
-                        component={RouterLink}
-                        to={"/app/account"}
+                        onClick={() => customerFormUpdate()}
+                   
                       >
                         <EditIcon />
                       </IconButton>
