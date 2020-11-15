@@ -10,8 +10,7 @@ import {
   InputAdornment,
   SvgIcon,
   makeStyles,
-  CardActions,
-  Divider,
+  Grid
 } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
 import { NavLink as RouterLink } from 'react-router-dom';
@@ -32,38 +31,47 @@ const Toolbar = ({ className, ...rest }) => {
       <Box mt={3}>
         <Card>
           <CardContent>
-            <Box maxWidth={500}>
-              <TextField
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SvgIcon
-                        fontSize="small"
-                        color="action"
-                      >
-                        <SearchIcon />
-                      </SvgIcon>
-                    </InputAdornment>
-                  )
-                }}
-                placeholder="Pesquisar"
-                variant="outlined"
-              />
+            <Box >
+              <Grid 
+                container
+                justify="space-between" 
+                alignItems="center">
+
+                <Grid maxWidth={300} >
+                  <TextField
+                    fullWidth
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SvgIcon
+                            fontSize="small"
+                            color="action"
+                          >
+                            <SearchIcon />
+                          </SvgIcon>
+                        </InputAdornment>
+                      )
+                    }}
+                    placeholder="Pesquisar"
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    fullWidth
+                    component={RouterLink}
+                    to={"/app/customer"}
+                  >
+                    Adicionar
+                  </Button>
+                </Grid>
+
+              </Grid>
             </Box>
-            
           </CardContent>
-          <CardActions>
-            <Button
-              color="primary"
-              variant="contained"
-              fullWidth
-              component={RouterLink}
-              to={"/app/account"}
-            >
-              Adicionar
-            </Button>
-          </CardActions>
         </Card>
       </Box>
     </div>

@@ -8,7 +8,6 @@ import Page from 'src/assets/Page';
 import Results from './Results';
 import Toolbar from './Toolbar';
 import api from '../../services/api';
-import AccountView from './account';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,14 +20,13 @@ const useStyles = makeStyles((theme) => ({
 
 const CustomerListView = () => {
   const classes = useStyles();
-
   const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
-    tableCustomer();
+    tableCustomers();
   }, []);
 
-  const tableCustomer = () => {
+  const tableCustomers = () => {
     api
     .get("/customers")
     .then((response) => {
@@ -40,12 +38,14 @@ const CustomerListView = () => {
     });
   }
 
+  
+
   const customerDelete = (id, i) => {
     api
       .delete(`/customer/${id}`)
       .then((response) => {
         console.log(response.data)
-        tableCustomer();
+        tableCustomers();
       })
       .catch((error) => {
         alert(`Ocorreu um erro ao excuir o cliente ${id}`);
@@ -54,9 +54,7 @@ const CustomerListView = () => {
 
   const customerFormUpdate = () => {
     console.log('oi')
-    return (<AccountView /> )
   }
-
 
   return (
     <Page

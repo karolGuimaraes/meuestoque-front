@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout';
 import MainLayout from 'src/components/MainLayout';
-// import AccountView from 'src/components/account';
+import AccountView from 'src/components/customer/account';
 import CustomerListView from 'src/components/customer';
 import DashboardView from 'src/components/reports/DashboardView';
 import LoginView from 'src/components/auth/LoginView';
@@ -15,7 +15,8 @@ const routes = [
     path: 'app',
     element: <DashboardLayout />,
     children: [
-      // { path: 'account', element: <AccountView /> },
+      { path: 'customer/:_id', element: <AccountView /> },
+      { path: 'customer', element: <AccountView /> },
       { path: 'customers', element: <CustomerListView /> },
       { path: 'dashboard', element: <DashboardView /> },
       { path: 'products', element: <ProductListView /> },

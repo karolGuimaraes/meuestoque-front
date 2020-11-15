@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Grid,
@@ -6,6 +6,8 @@ import {
 } from '@material-ui/core';
 import Page from '../../../assets/Page';
 import ProfileDetails from './ProfileDetails';
+import { useParams } from 'react-router-dom';
+import api from '../../../services/api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +20,56 @@ const useStyles = makeStyles((theme) => ({
 
 const Account = () => {
   const classes = useStyles();
+  const { _id } = useParams();
+  const [customer, setCustomer] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    if(_id){
+      api
+      .get(`/customer/${_id}`)
+      .then((response) => {
+        setCustomer(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        alert("Ocorreu um erro ao buscar o cliente");
+      });
+    } else {
+      // setCustomer({"address": {}});
+      setLoading(false);
+      console.log('Sem id, novo usuário')
+    }
+  }, []);
 
+  const customerCreate = (customer) => {
+    console.log(customer)
+    api
+      .post(`/customer/`, customer)
+      .then((response) => {
+        console.log(`Cliente criado ${response.data}`)
+      })
+      .catch((error) => {
+        alert(`Ocorreu um erro ao criar client`);
+      });
+  }
+
+  const customerEdit = (customer) => {
+    console.log(customer)
+    api
+      .put(`/customer/${customer._id}`, customer)
+      .then((response) => {
+        console.log(`Cliente editado ${response.data}`)
+      })
+      .catch((error) => {
+        alert(`Ocorreu um erro ao editar client`);
+      });
+  }
+
+  if (loading) {
+    return <p>Please wait...</p>;
+  }
+    
   return (
     <Page
       className={classes.root}
@@ -36,7 +87,7 @@ const Account = () => {
             md={6}
             xs={12}
           >
-            <ProfileDetails />
+            <ProfileDetails customer={customer} customerCreate={customerCreate} customerEdit={customerEdit} />
           </Grid>
         </Grid>
       </Container>

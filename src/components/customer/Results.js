@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
-  Avatar,
   Box,
   Card,
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -16,16 +13,14 @@ import {
   TableRow,
   Typography,
   makeStyles,
-  Button,
   IconButton,
 } from '@material-ui/core';
 import {
   Edit as EditIcon,
   UserX as UserXIcon
 } from 'react-feather';
-import { NavLink as RouterLink } from 'react-router-dom';
-import api from '../../services/api';
-
+import { NavLink as RouterLink, Route } from 'react-router-dom';
+import Account from './account';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -38,6 +33,7 @@ const Results = ({ className, customers, customerDelete, customerFormUpdate, ...
   const classes = useStyles();
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
+  // const history = useHistory();
   
  
   const handleLimitChange = (event) => {
@@ -108,11 +104,12 @@ const Results = ({ className, customers, customerDelete, customerFormUpdate, ...
                         edge="end"
                         size="small"
                         color="secondary"
-                        onClick={() => customerFormUpdate()}
-                   
+                        component={RouterLink}
+                        to={`/app/customer/${customer._id}`}
                       >
                         <EditIcon />
                       </IconButton>
+
                       <IconButton
                         edge="end"
                         size="small"

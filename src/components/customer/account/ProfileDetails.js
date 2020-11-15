@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import clsx from 'clsx';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -9,58 +8,41 @@ import {
   CardHeader,
   Divider,
   Grid,
-  TextField,
-  makeStyles
+  TextField
 } from '@material-ui/core';
 import { NavLink as RouterLink } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  }
-];
 
-const useStyles = makeStyles(() => ({
-  root: {}
-}));
-
-const ProfileDetails = ({ className, ...rest }) => {
-  const classes = useStyles();
-  const [values, setValues] = useState({
-    firstName: 'Katarina',
-    lastName: 'Smith',
-    email: 'demo@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
-  });
-
+const ProfileDetails = ({ customer, customerCreate, customerEdit }) => {
+  const { handleSubmit } = useForm();
+  const [values, setValues] = useState(customer);
   const handleChange = (event) => {
     setValues({
       ...values,
       [event.target.name]: event.target.value
     });
+    
+  };
+
+  const onSubmit = async data => {
+    if (customer._id) {
+      await customerEdit(values);
+    } else {
+      await customerCreate(values);
+    }
   };
 
   return (
     <form
+      onSubmit={handleSubmit(onSubmit)}
       autoComplete="off"
       noValidate
-      className={clsx(classes.root, className)}
-      {...rest}
+      values={values}
     >
       <Card>
         <CardHeader
-          title="Cliente"
+          title={customer._id ? "Editar Cliente" : "Adicionar Cliente"}
         />
         <Divider />
         <CardContent>
@@ -72,15 +54,15 @@ const ProfileDetails = ({ className, ...rest }) => {
               item
               md={6}
               xs={12}
-            >
+            > 
               <TextField
                 fullWidth
                 label="Primeiro nome"
-                name="firstName"
-                onChange={handleChange}
+                name="firstname"
                 required
-                value={values.firstName}
+                value={customer.firstname}
                 variant="outlined"
+                onChange={handleChange}
               />
             </Grid>
             <Grid
@@ -91,9 +73,9 @@ const ProfileDetails = ({ className, ...rest }) => {
               <TextField
                 fullWidth
                 label="Último nome"
-                name="lastName"
+                name="lastname"
                 onChange={handleChange}
-                value={values.lastName}
+                value={customer.lastname}
                 variant="outlined"
               />
             </Grid>
@@ -107,7 +89,7 @@ const ProfileDetails = ({ className, ...rest }) => {
                 label="Refêrencia"
                 name="reference"
                 onChange={handleChange}
-                value={values.reference}
+                value={customer.reference}
                 variant="outlined"
               />
             </Grid>
@@ -121,7 +103,7 @@ const ProfileDetails = ({ className, ...rest }) => {
                 label="Telefone"
                 name="phone"
                 onChange={handleChange}
-                value={values.phone}
+                value={customer.phone}
                 variant="outlined"
               />
             </Grid>
@@ -135,24 +117,17 @@ const ProfileDetails = ({ className, ...rest }) => {
                 label="Instagram"
                 name="instagram"
                 onChange={handleChange}
-                value={values.instagram}
+                value={customer.instagram}
                 variant="outlined"
               />
             </Grid>
+            
             <Grid
               item
               md={6}
               xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Email"
-                name="email"
-                onChange={handleChange}
-                value={values.instagram}
-                variant="outlined"
-              />
-            </Grid>
+            ></Grid>
+
             <Grid
               item
               md={6}
@@ -161,9 +136,9 @@ const ProfileDetails = ({ className, ...rest }) => {
               <TextField
                 fullWidth
                 label="CEP"
-                name="zipCode"
+                name="address.zipcode"
                 onChange={handleChange}
-                value={values.zipCode}
+                value={customer.address ? customer.address.zipcode : null}
                 variant="outlined"
               />
             </Grid>
@@ -175,9 +150,9 @@ const ProfileDetails = ({ className, ...rest }) => {
               <TextField
                 fullWidth
                 label="Logradouro"
-                name="address"
+                name="address.street"
                 onChange={handleChange}
-                value={values.address}
+                value={customer.address ? customer.address.street : null}
                 variant="outlined"
               >
               </TextField>
@@ -190,9 +165,9 @@ const ProfileDetails = ({ className, ...rest }) => {
               <TextField
                 fullWidth
                 label="Complemento"
-                name="complement"
+                name="address.complement"
                 onChange={handleChange}
-                value={values.complement}
+                value={customer.address ? customer.address.complement : null}
                 variant="outlined"
               >
               </TextField>
@@ -205,9 +180,9 @@ const ProfileDetails = ({ className, ...rest }) => {
               <TextField
                 fullWidth
                 label="Bairro"
-                name="district"
+                name="address.district"
                 onChange={handleChange}
-                value={values.district}
+                value={customer.address ? customer.address.district : null}
                 variant="outlined"
               >
               </TextField>
@@ -220,9 +195,9 @@ const ProfileDetails = ({ className, ...rest }) => {
               <TextField
                 fullWidth
                 label="Cidade"
-                name="city"
+                name="address.city"
                 onChange={handleChange}
-                value={values.city}
+                value={customer.address ? customer.address.city : null}
                 variant="outlined"
               >
               </TextField>
@@ -235,9 +210,9 @@ const ProfileDetails = ({ className, ...rest }) => {
               <TextField
                 fullWidth
                 label="Estado"
-                name="state"
+                name="address.state"
                 onChange={handleChange}
-                value={values.state}
+                value={customer.address ? customer.address.state : null}
                 variant="outlined"
               >
               </TextField>
@@ -248,13 +223,13 @@ const ProfileDetails = ({ className, ...rest }) => {
         <Box
           display="flex"
           justifyContent="flex-end"
+          justify="space-between" 
           p={2}
         >
           <Button
             color="primary"
             variant="contained"
-            component={RouterLink}
-            to={"/app/customers"}
+            type="submit"
           >
             Salvar
           </Button>

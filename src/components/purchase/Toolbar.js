@@ -11,7 +11,6 @@ import {
   SvgIcon,
   makeStyles,
   CardActions,
-  Divider,
 } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
 import { NavLink as RouterLink } from 'react-router-dom';

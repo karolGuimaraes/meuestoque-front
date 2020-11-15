@@ -6,7 +6,6 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Box,
   Card,
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -15,7 +14,6 @@ import {
   TableRow,
   Typography,
   makeStyles,
-  Button,
   IconButton,
 } from '@material-ui/core';
 import {
@@ -35,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Results = ({ className, ...rest }) => {
   const classes = useStyles();
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
+  // const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
   const [customers, setCustomers] = useState([]);
