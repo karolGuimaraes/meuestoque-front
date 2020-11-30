@@ -31,9 +31,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Results = ({ className, customers, customerDelete, customerFormUpdate, ...rest }) => {
   const classes = useStyles();
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
-  // const history = useHistory();
   
  
   const handleLimitChange = (event) => {
@@ -43,8 +42,6 @@ const Results = ({ className, customers, customerDelete, customerFormUpdate, ...
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
-
-  
 
   return (
     <Card

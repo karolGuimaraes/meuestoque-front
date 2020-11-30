@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Box,
@@ -20,9 +19,8 @@ import {
   Edit as EditIcon,
   UserX as UserXIcon
 } from 'react-feather';
-import { NavLink as RouterLink } from 'react-router-dom';
-import api from '../../services/api';
-
+import { NavLink as RouterLink, Route } from 'react-router-dom';
+import Account from './account';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -31,27 +29,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Results = ({ className, ...rest }) => {
+const Results = ({ className, customers, customerDelete, customerFormUpdate, ...rest }) => {
   const classes = useStyles();
-  // const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
-  const [customers, setCustomers] = useState([]);
-
-  useEffect(() => {
-    api
-      .get("/purchases")
-      .then((response) => {
-        setCustomers(response.data);
-        console.log(response.data)
-      })
-      .catch((error) => {
-        alert("Ocorreu um erro ao buscar os items");
-      });
-  }, []);
-
-
-
+  
+ 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
   };
@@ -59,18 +42,6 @@ const Results = ({ className, ...rest }) => {
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
-
-  const customerDelete = (id, i) => {
-    api
-      .delete(`/user/${id}`)
-      .then((response) => {
-        console.log(response.data)
-        setCustomers(customers.slice(i,1 ))
-      })
-      .catch((error) => {
-        alert(`Ocorreu um erro ao excuir o cliente ${id}`);
-      });
-  }
 
   return (
     <Card
@@ -83,13 +54,10 @@ const Results = ({ className, ...rest }) => {
             <TableHead>
               <TableRow>
                 <TableCell>
-                  Número
+                  Nome
                 </TableCell>
                 <TableCell>
-                  Data
-                </TableCell>
-                <TableCell>
-                  Valor
+                  Telefone
                 </TableCell>
                 <TableCell>
                   Ações
@@ -100,7 +68,7 @@ const Results = ({ className, ...rest }) => {
               {customers.slice(0, limit).map((customer, i) => (
                 <TableRow
                   hover
-                  key={customer.id}
+                  key={customer._id}
                 >
                   <TableCell>
                     <Box
@@ -111,12 +79,9 @@ const Results = ({ className, ...rest }) => {
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.number}
+                        {customer.name}
                       </Typography>
                     </Box>
-                  </TableCell>
-                  <TableCell>
-                    {moment(customer.date).format('DD/MM/YYYY')}
                   </TableCell>
                   <TableCell>
                     {customer.phone}
@@ -131,10 +96,11 @@ const Results = ({ className, ...rest }) => {
                         size="small"
                         color="secondary"
                         component={RouterLink}
-                        to={"/app/account"}
+                        to={`/app/customer/${customer._id}`}
                       >
                         <EditIcon />
                       </IconButton>
+
                       <IconButton
                         edge="end"
                         size="small"

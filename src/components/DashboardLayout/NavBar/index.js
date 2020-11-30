@@ -13,15 +13,11 @@ import {
   ShoppingBag as ShoppingBagIcon,
   Users as UsersIcon,
   FileText as FileTextIcon,
-  DollarSign as DollarSignIcon
+  DollarSign as DollarSignIcon,
+  Tag as TagIcon,
+  Truck as TruckIcon
 } from 'react-feather';
 import NavItem from './NavItem';
-
-// const user = {
-//   avatar: '/static/images/avatars/avatar_6.png',
-//   jobTitle: 'Senior Developer',
-//   name: 'Katarina Smith'
-// };
 
 const items = [
   {
@@ -43,6 +39,16 @@ const items = [
     href: '/app/customers',
     icon: UsersIcon,
     title: 'Clientes'
+  },
+  {
+    href: '/app/providers',
+    icon: TruckIcon,
+    title: 'Fornecedores'
+  },
+  {
+    href: '/app/categories',
+    icon: TagIcon,
+    title: 'Categorias'
   }
 ];
 
@@ -70,7 +76,6 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     if (openMobile && onMobileClose) {
       onMobileClose();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
   const content = (

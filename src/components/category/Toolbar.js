@@ -10,20 +10,13 @@ import {
   InputAdornment,
   SvgIcon,
   makeStyles,
-  CardActions,
   Grid
 } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
 import { NavLink as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
-  importButton: {
-    marginRight: theme.spacing(1)
-  },
-  exportButton: {
-    marginRight: theme.spacing(1)
-  }
+  root: {}
 }));
 
 const Toolbar = ({ className, ...rest }) => {
@@ -70,7 +63,7 @@ const Toolbar = ({ className, ...rest }) => {
                     variant="contained"
                     fullWidth
                     component={RouterLink}
-                    to={"/app/purchase"}
+                    to={"/app/category"}
                   >
                     Adicionar
                   </Button>

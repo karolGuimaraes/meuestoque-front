@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import {
   Container,
   Grid,
-  makeStyles,
-  CircularProgress
+  makeStyles
 } from '@material-ui/core';
 import Page from '../../../assets/Page';
-import ProfileDetails from './ProfileDetails';
+import PurchaseForm from './PurchaseForm';
 import { useParams } from 'react-router-dom';
 import api from '../../../services/api';
 
@@ -38,7 +37,7 @@ const Account = () => {
       });
     } else {
       // setCustomer({"address": {}});
-      setLoading(true);
+      setLoading(false);
       console.log('Sem id, novo usuário')
     }
   }, []);
@@ -68,29 +67,7 @@ const Account = () => {
   }
 
   if (loading) {
-    return (
-      <Page
-        className={classes.root}
-        title="Editar Cliente"
-      >
-        <Container maxWidth="lg">
-          <Grid
-            container
-            spacing={3}
-            justify="center"
-          >
-            <Grid
-              item
-              lg={8}
-              md={6}
-              xs={12}
-            >
-              <CircularProgress />
-            </Grid>
-          </Grid>
-        </Container>
-      </Page>
-    );
+    return <p>Please wait...</p>;
   }
     
   return (
@@ -110,7 +87,7 @@ const Account = () => {
             md={6}
             xs={12}
           >
-            <ProfileDetails customer={customer} customerCreate={customerCreate} customerEdit={customerEdit} />
+            <PurchaseForm customer={customer} customerCreate={customerCreate} customerEdit={customerEdit} />
           </Grid>
         </Grid>
       </Container>
